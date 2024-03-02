@@ -1,16 +1,13 @@
 {
-    "version": 2,
-    "builds": [
-      {
+    "builds": [{
         "src": "fulanimeproject/wsgi.py",
-        "use": "@vercel/build",
-        "config": {
-          "maxLambdaSize": "15mb"
-        }
-      }
-    ],
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+    }],
     "routes": [
-      { "src": "/(.*)", "dest": "/index.html" }
+        {
+            "src": "/(.*)",
+            "dest": "fulanimeproject/wsgi.py"
+        }
     ]
-  }
-  
+}
