@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'fulanime.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
         'PASSWORD': 'g5Cf5GGeF-GeFAa3dABEc363Efgba31',
