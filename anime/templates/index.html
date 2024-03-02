@@ -1,0 +1,148 @@
+<!-- index.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <!-- Add your additional CSS links here -->
+{% endblock %}
+
+{% block content %}
+  <!-- Info -->
+  <div class="container cf">
+    <div class="info">
+      <span>INFO</span> repair is complete, happy watching and downloading<br>
+      Sedang dalam proses penambahan video streaming (Episode List) untuk setiap Anime. Dimulai dari Abjad A-Z
+    </div>
+    <!-- Anime -->
+      <section class="anime" id="anime">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="{% static "image/slide1.png" %}" alt="slide1"></div>
+            <div class="swiper-slide"><img src="{% static "image/slide2.png" %}" alt="slide2"></div>
+            <div class="swiper-slide"><img src="{% static "image/slide4.png" %}" alt="slide4"></div>
+            <div class="swiper-slide"><img src="{% static "image/slide5.png" %}" alt="slide5"></div>
+          </div>
+        </div>
+
+        <!-- Main Side - Recommended Anime -->
+        <div class="main-side">
+          <div class="side-judul">Rekomendasi</div>
+          <div class="side-anime">
+            <!-- S -->
+            <hr>
+            {% for recommended_anime in recommended_animes %}
+              <div class="r-anime">
+                <a href="{% url 'anime_detail' recommended_anime.anime.id %}">
+                  <img src="{{ recommended_anime.anime.cover_image.url }}" alt="{{ recommended_anime.anime.title }}">
+                </a>
+                <div class="r-text">
+                  <div class="r-judul">
+                    <strong>{{ recommended_anime.anime.title }}</strong>
+                  </div>
+                  <div class="r-etc">
+                    <span>Genre: {% for genre in recommended_anime.anime.genres.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span><br>
+                    <span>Eps: {{ recommended_anime.anime.episode_set.count }}</span><br>
+                    <span>Status: {{ recommended_anime.anime.get_status_display }}</span><br>
+                    <span>{{ recommended_anime.anime.release_date|date:"M d, Y" }}</span>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+
+        <!-- Heading Box - Trending Anime -->
+        <div class="heading-box">
+          <div class="heading">Trending Now</div>
+          <div class="view-all"><a href="{% url 'anime_list' %}">View All<i class="uil uil-arrow-right"></i></a></div>
+        </div>
+
+        <!-- Anime Container - Trending Anime -->
+        <div class="anime-container">
+          <!-- Box -->
+          {% for trending_anime in trending_animes %}
+            <div class="box">
+              <a href="{% url 'anime_detail' trending_anime.anime.id %}" class="box-overlay">
+                <i class="uil uil-play-circle"></i>
+              </a>
+              <div class="box-img">
+                <img src="{{ trending_anime.anime.cover_image.url }}" alt="{{ trending_anime.anime.title }}">
+              </div>
+              <div class="box-text">
+                <span class="ep">Ep {{ trending_anime.anime.episode_set.count }}</span>
+                <div class="bottom-text">
+                  <div class="judul">
+                    <strong>{{ trending_anime.anime.title }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Heading Box - List Anime -->
+        <div class="heading-box">
+          <div class="heading">Anime List</div>
+          <div class="view-all"><a href="{% url 'anime_list' %}">View All<i class="uil uil-arrow-right"></i></a></div>
+        </div>
+        
+
+        <!-- Anime Container - List Anime -->
+        <div class="anime-container">
+          <!-- Box -->
+          {% for anime in anime_list %}
+            <div class="box">
+              <a href="{% url 'anime_detail' anime.id %}" class="box-overlay">
+                <i class="uil uil-play-circle"></i>
+              </a>
+              <div class="box-img">
+                <img src="{{ anime.cover_image.url }}" alt="{{ anime.title }}">
+              </div>
+              <div class="box-text">
+                <span class="ep">Ep {{ anime.episode_set.count }}</span>
+                <div class="bottom-text">
+                  <div class="judul">
+                    <strong>{{ anime.title }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      </section>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Add your additional JS scripts here -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper('.mySwiper', {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 40,
+        },
+      }
+    });
+  </script>
+{% endblock %}

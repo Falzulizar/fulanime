@@ -1,0 +1,236 @@
+<!-- templates/episode_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}{{ episode.anime.title }} - Episode {{ episode.episode_number }}{% endblock %}
+
+{% block content %}
+{% load static %}
+
+  <style>
+    .episode-page {
+      max-width: 1159px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+  
+  .video-container {
+      position: relative;
+      margin: 20px 0;
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      height: 0;
+  }
+  
+  .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-shadow: none;
+      outline: none;
+  }
+
+  .watermark {
+    position: absolute;
+    left: 10px;
+    max-width: 20%; /* Maksimum lebar watermark */
+    width: auto; /* Lebar akan menyesuaikan dengan kontennya */
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 2; /* Set a higher z-index than the iframe */
+  }
+
+  .watermark img {
+    max-width: 100%;
+    height: auto;
+}
+
+.episode-buttons-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.episode-buttons {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.episode-buttons a {
+  color: #333;
+  background-color: #f0f0f0;
+  padding: 10px 15px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.episode-buttons a.active-playing {
+  background-color: #3498db;
+  color: #fff;
+  /* Additional styles for active-playing state */
+}
+
+.episode-buttons a:hover {
+  background-color: #3498db;
+  color: #fff;
+  /* Additional styles for hover state */
+}
+
+.pagination-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.pagination-buttons button {
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-buttons button:hover {
+  background-color: #2575a7;
+}
+
+
+  
+  /* Comment Form Styling */
+  .comment-form {
+      margin-top: 20px;
+  }
+  
+  .comment-form label {
+      display: block;
+      font-size: 1em;
+      margin-bottom: 5px;
+  }
+  
+  .comment-form input,
+  .comment-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+  }
+  
+  .comment-form button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 1em;
+  }
+  
+  .comment-form button:hover {
+      background-color: #2980b9;
+  }
+  </style>  
+
+  <div class="container cf">
+
+    <div class="episode-page">
+      <h2>{{ episode.anime.title }} - Episode {{ episode.episode_number }}</h2>
+      <div class="video-container">
+        <div class="watermark">
+          <img src="{% static "image/logo.png" %}" alt="logo">
+        </div>
+        <iframe src="{{ episode.video_url }}" 
+            frameborder="0"
+            allowfullscreen="true" 
+            scrolling="NO" 
+            webkitallowfullscreen="true" 
+            mozallowfullscreen="true">
+        </iframe>
+    </div>
+    
+      <!-- Episode Buttons -->
+      <div class="episode-buttons-container">
+        <div class="episode-buttons">
+            {% for ep in episode.anime.episode_set.all %}
+                <a href="{% url 'episode_detail' ep.id %}" class="{% if ep.id == episode.id %}active-playing{% else %}inactive{% endif %}">
+                    Eps {{ ep.episode_number }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="pagination-buttons">
+        <button id="prevButton" onclick="scrollPagination('prev')">Previous</button>
+        <button id="nextButton" onclick="scrollPagination('next')">Next</button>
+    </div>
+    
+
+      <!-- Heading Box - Trending Anime -->
+      <div class="heading-box" style="width:100%;">
+        <div class="heading">Trending Now</div>
+        <div class="view-all"><a href="{% url 'anime_list' %}">View All<i class="uil uil-arrow-right"></i></a></div>
+      </div>
+
+      <!-- Anime Container - Trending Anime -->
+      <div class="anime-container" style="width:100%; margin-bottom: 20px;">
+        <!-- Box -->
+        {% for trending_anime in trending_animes|slice:":12" %}
+          <div class="box">
+            <a href="{% url 'anime_detail' trending_anime.anime.id %}" class="box-overlay">
+              <i class="uil uil-play-circle"></i>
+            </a>
+            <div class="box-img">
+              <img src="{{ trending_anime.anime.cover_image.url }}" alt="{{ trending_anime.anime.title }}">
+            </div>
+            <div class="box-text">
+              <span class="ep">Ep {{ trending_anime.anime.episode_set.count }}</span>
+              <div class="bottom-text">
+                <div class="judul">
+                  <strong>{{ trending_anime.anime.title }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <h3>Comments:</h3>
+      <ul class="comment-list">
+          {% for comment in comments %}
+              <li>{{ comment.user_name }}: {{ comment.comment_text }}</li>
+          {% endfor %}
+      </ul>
+      <!-- Comment Form -->
+      <form class="comment-form" method="post" action="{% url 'add_comment' episode.id %}">
+        {% csrf_token %}
+        <label for="user_name">Your Name:</label>
+        <input type="text" name="user_name" required>
+        <br>
+        <label for="comment_text">Your Comment:</label>
+        <textarea name="comment_text" rows="4" required></textarea>
+        <br>
+        <button type="submit">Submit Comment</button>
+      </form>
+    </div>
+  
+
+  </div>
+
+  <script>
+    function scrollPagination(direction) {
+        const container = document.querySelector('.episode-buttons-container');
+        const scrollAmount = 200;
+        if (direction === 'prev') {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }
+</script>
+{% endblock %}

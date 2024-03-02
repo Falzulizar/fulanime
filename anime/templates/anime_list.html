@@ -1,0 +1,76 @@
+<!-- templates/anime/anime_list.html -->
+
+{% extends 'base.html' %}
+{% block title %}Anime List - Fulanime{% endblock %}
+{% block content %}
+
+    <style>
+      form{
+        margin-bottom: 20px;
+      }
+    </style>
+
+    <div class="container cf">
+ 
+        <!-- Heading Box -->
+        <div class="heading-box">
+            <div class="heading">List Anime</div>
+        </div>
+
+        <div class="search-results">
+            {% if query %}
+                <p>Search results for: {{ query }}</p>
+                <!-- Display search results here -->
+                {% for anime in search_results %}
+                    <!-- Customize the display of each search result -->
+                    <p>{{ anime.title }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Genre Filter -->
+        <form method="get" id="genreFilterForm">
+          <label for="genre">Filter by Genre:</label>
+          <select name="genre" id="genre">
+              <option value="">All Genres</option>
+              {% for genre in genres %}
+                  <option value="{{ genre.name }}" {% if genre.name == selected_genre %}selected{% endif %}>
+                      {{ genre.name }}
+                  </option>
+              {% endfor %}
+          </select>
+        </form>
+        
+
+          <!-- Anime Container - Trending Anime -->
+          <div class="anime-container" style="width: 100%;">
+            <!-- Box -->
+            {% for anime in anime_list %}
+              <div class="box">
+                <a href="{% url 'anime_detail' anime.id %}" class="box-overlay">
+                  <i class="uil uil-play-circle"></i>
+                </a>
+                <div class="box-img">
+                  <img src="{{ anime.cover_image.url }}" alt="{{ anime.title }}">
+                </div>
+                <div class="box-text">
+                  <span class="ep">Eps {{ anime.episode_set.count }}</span>
+                  <div class="bottom-text">
+                    <div class="judul">
+                      <strong>{{ anime.title }}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+    </div>
+
+    <script>
+        document.getElementById('genre').addEventListener('change', function() {
+            document.getElementById('genreFilterForm').submit();
+        });
+    </script>    
+    
+{% endblock %}

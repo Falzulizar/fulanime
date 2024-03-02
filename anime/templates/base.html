@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Fulanime | Streaming Anime{% endblock %}</title>
+        <link rel="icon" href="{% static "image/icon.png" %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=2">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+        <script src="{% static 'js/script.js' %}" defer></script>
+    </head>
+
+<body>
+    <nav class="nav">
+        <i class="uil uil-bars navOpenBtn"></i>
+        <a href="{% url 'index' %}" class="logo"><img src="{% static "image/logo.png" %}" alt="logo"></a>
+  
+        <ul class="nav-links">
+          <i class="uil uil-times navCloseBtn"></i>
+          <li><a href="{% url 'index' %}" class="garis">Home</a></li>
+          <li><a href="{% url 'anime_list' %}" class="garis">List Anime</a></li>
+          <li><a href="#" class="garis">Movie</a></li>
+          <li><a href="{% url 'ongoing_anime' %}" class="garis">Ongoing</a></li>
+          <li><a href="{% url 'admin:index' %}" class="nav-log garis">Log in</a></li>
+        </ul>
+  
+        <div class="logs">
+          <i class="uil uil-search search-icon" id="searchIcon"></i>
+        </div>
+        <div class="search-box">
+          <a href="#" id="search-button">
+              <i class="uil uil-search search-icon"></i>
+          </a>
+          <input type="text" name="q" id="search-input" placeholder="Search here..." />
+      </div> 
+      </nav>  
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <!--Footer-->
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section">
+            <div class="logo">
+              <a href="#"><img src="{% static "image/logo.png" %}"></a>
+            </div>
+            <a href="https://trakteer.id/alana_feith/tip" target="_blank" class="kopi">
+              <i class="uil uil-coffee"></i>
+                Trakteer Kopi
+            </a>
+            <p >Copyright © 2023 Fulanime.</p>
+          </div>
+          <div class="footer-section hide">
+              <h1>ありがとう</h1>
+              <p>Terimakasih telah mengunjungi Fulanime!</p>
+              <p>Selamat menonton!</p>
+        </div>
+      </footer>
+
+      
+
+      <script>
+        var searchButton = document.getElementById('search-button');
+        var searchInput = document.getElementById('search-input');
+    
+        function handleSearch() {
+            var searchUrl = "{% url 'anime_list' %}?q=" + encodeURIComponent(searchInput.value);
+            window.location.href = searchUrl;
+        }
+    
+        // Handle click event on search button
+        searchButton.addEventListener('click', handleSearch);
+    
+        // Handle keypress event on search input
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    
+        // Additional JavaScript code from previous responses
+        document.getElementById('genre').addEventListener('change', function() {
+            document.getElementById('genreFilterForm').submit();
+        });
+    </script>
+    
+
+</body>
+</html>

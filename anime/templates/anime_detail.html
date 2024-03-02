@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ anime.title }} - Fulanime{% endblock %}
+
+{% block content %}
+
+  <style>
+    /* Container styling */
+    .anime-detail-container {
+        display: flex;
+        margin: 20px 0;
+        background-color: #222; /* Warna latar belakang pembungkus */
+        padding: 20px; /* Ruang di dalam pembungkus */
+    }
+
+    /* Image styling */
+    .anime-detail-container img {
+        width: 30%; /* Sesuaikan lebar gambar sesuai kebutuhan Anda */
+        height: auto;
+        margin-right: 20px; /* Jarak antara gambar dan teks */
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan pada gambar */
+    }
+
+    /* Text and genre container styling */
+    .text-genre-container {
+        flex-grow: 1; /* Membuat teks dan genre memenuhi sisa ruang yang tersedia */
+        color: #fff; /* Warna teks */
+    }
+
+    /* Genre list styling */
+    .text-genre-container ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+    }
+
+    .text-genre-container ul li {
+        display: inline-block;
+        margin: 3px;
+        background-color: #333; /* Warna latar belakang genre */
+        color: #fff; /* Warna teks genre */
+        padding: 5px 10px;
+        border-radius: 3px;
+    }
+
+    /* Episode list styling */
+    ul.episode-list {
+        list-style: none;
+        padding: 0;
+        display: flex; /* Membuat daftar episode menggunakan flexbox */
+        flex-direction: column; /* Mengatur arah menjadi vertikal (ke bawah) */
+        margin-top: 10px;
+    }
+
+    ul.episode-list li {
+        background-color: #333; /* Warna latar belakang episode */
+        color: #fff; /* Warna teks episode */
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan pada episode */
+        transition: background-color 0.3s ease; /* Efek transisi ketika dihover */
+        display: flex;
+        align-items: center;
+    }
+
+    .anime-detail-text ul.episode-list li:hover {
+        background-color: #555; /* Warna latar belakang ketika dihover */
+    }
+
+    .donate a {
+      /* Gaya untuk tombol episode yang tidak aktif */
+      color: #fff;
+      padding: 5px 10px;
+      margin: 5px;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 3px;
+    }
+
+    /* Media Queries */
+    /* Mobile Phones */
+    @media only screen and (max-width: 600px) {
+      .anime-detail-container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+      }
+      .anime-detail-container img {
+        width: 100%;
+      }
+      .donate a {
+        display: flex;
+        align-items: center;
+      }
+    }
+  
+    /* Tablets */
+    @media only screen and (min-width: 601px) and (max-width: 768px) {
+      .anime-detail-container img {
+        width: 30%;
+        height: auto;
+      }
+    }
+  </style>
+  <div class="container cf">
+
+    <div class="info">
+      <span>INFO</span> repair is complete, happy watching and downloading<br>
+      Sedang dalam proses penambahan video streaming (Episode List) untuk setiap Anime. Dimulai dari Abjad A-Z
+    </div>
+
+    <div class="anime-detail-container">
+      <img src="{{ MEDIA_URL }}{{ anime.cover_image.url }}" alt="{{ anime.title }} Cover">
+      <div class="text-genre-container">
+        <h1>{{ anime.title }}</h2>
+        <p>{{ anime.description }}</p>
+        <p><strong>Tanggal Rilis:</strong> {{ anime.release_date|date:"M d, Y" }}</p>
+        <p><strong>Total Episode:</strong> {{ anime.episode_count }}</p>
+        <p><strong>Status:</strong> {{ anime.get_status_display }}</p>  {# Menampilkan status dengan label yang sesuai #}
+        <h3>Genre:</h3>
+        <ul>
+          {% for genre in anime.genres.all %}
+            <li>{{ genre.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Donate Buttons -->
+    <div class="donate">
+          <a href="https://trakteer.id/alana_feith/tip" target="_blank" style="background-color: #dc3545">
+            <i class="uil uil-coffee"></i>
+              Trakteer Kopi
+          </a>
+          <a href="https://trakteer.id/alana_feith/tip" target="_blank" style="background-color: #198754">
+            <i class="uil uil-wallet"></i>
+              Donasi via SociaBuzz
+          </a>
+          <a href="https://trakteer.id/alana_feith/tip" target="_blank" style="background-color: #efc130">
+            <i class="uil uil-money-insert"></i>
+            Donasi via Saweria
+          </a>
+    </div>
+    
+
+    <h3>Episode:</h3>
+    <ul class="episode-list">
+      {% for episode in anime.episode_set.all %}
+        <li>
+          <a href="{% url 'episode_detail' episode.id %}">{{ episode.title }} - Subtitle Indonesia</a>
+        </li>
+      {% endfor %}
+    </ul>
+  
+  </div>
+{% endblock %}

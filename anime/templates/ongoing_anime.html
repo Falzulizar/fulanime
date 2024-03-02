@@ -1,0 +1,34 @@
+<!-- ongoing_anime.html -->
+{% extends 'base.html' %}
+{% block title %}Ongoing Anime List - Fulanime{% endblock %}
+
+{% block content %}
+  <div class="container cf">
+
+    <!-- Heading Box -->
+    <div class="heading-box">
+        <div class="heading">Ongoing Anime</div>
+    </div>
+
+    <div class="anime-container" style="width: 100%;">
+      {% for anime in ongoing_anime_list %}
+        <div class="box">
+          <a href="{% url 'anime_detail' anime.id %}" class="box-overlay">
+            <i class="uil uil-play-circle"></i>
+          </a>
+          <div class="box-img">
+            <img src="{{ anime.cover_image.url }}" alt="{{ anime.title }}">
+          </div>
+          <div class="box-text">
+            <span class="ep">Ep {{ anime.episode_set.count }}</span>
+            <div class="bottom-text">
+              <div class="judul">
+                <strong>{{ anime.title }}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
