@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "wsgi.py",
+        "src": "fulanimeproject/wsgi.py",
         "use": "@vercel/build",
         "config": {
           "maxLambdaSize": "15mb"
