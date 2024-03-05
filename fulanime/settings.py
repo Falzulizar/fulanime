@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-m)bne-#=+5q!(ro2go7%l!@&c@ol9#(dh5!bpjjwy+uy^mnb*_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.now.sh']
-
+ALLOWED_HOSTS = [
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -78,12 +79,8 @@ WSGI_APPLICATION = 'fulanime.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'g5Cf5GGeF-GeFAa3dABEc363Efgba31-',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '28253',  
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

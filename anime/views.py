@@ -1,13 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import Anime, Episode, Comment, RecommendedAnime, TrendingAnime, Genre
-
-def tes(request):
-    return render(request, 'tes.html')
+from .models import Anime, Episode, Comment, RecommendedAnime, TrendingAnime, Genre, Movie
 
 def index(request):
     anime_list = Anime.objects.all()
+    movie_list = Movie.objects.all()
     recommended_animes = RecommendedAnime.objects.all()
     trending_animes = TrendingAnime.objects.all()
 
@@ -15,6 +13,7 @@ def index(request):
         'anime_list': anime_list,
         'recommended_animes': recommended_animes,
         'trending_animes': trending_animes,
+        'movie_list' : movie_list
     }
 
     return render(request, 'index.html', context)
@@ -41,6 +40,26 @@ def episode_detail(request, episode_id):
         return redirect('episode_detail', episode_id=episode.id)
 
     return render(request, 'episode_detail.html', {'episode': episode, 'comments': comments, 'trending_animes': trending_animes})
+
+def movie_detail(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+
+    return render(request, 'movie_detail.html', {'movie': movie})
+
+def movie_list(request):
+    genres = Genre.objects.all()
+    selected_genre = request.GET.get('genre')
+    search_query = request.GET.get('q')
+
+    if selected_genre:
+        movie_list = Movie.objects.filter(genres__name=selected_genre)
+    elif search_query:  # Periksa apakah ada parameter pencarian
+        movie_list = Movie.objects.filter(title__icontains=search_query)
+    else:
+        movie_list = Movie.objects.all()
+
+    context = {'movie_list': movie_list, 'genres': genres, 'selected_genre': selected_genre, 'query': search_query}  # Tambahkan 'query' ke context
+    return render(request, 'movie_list.html', context)
 
 def anime_list(request):
     genres = Genre.objects.all()

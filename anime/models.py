@@ -6,6 +6,17 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class Movie(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    release_date = models.DateField()
+    genres = models.ManyToManyField(Genre)
+    cover_image = models.ImageField(upload_to='movie_covers/', null=True, blank=True)
+    video_url = models.URLField()
+
+    def __str__(self):
+        return self.title
+
 class Anime(models.Model):
     ONGOING = 'Ongoing'
     COMPLETE = 'Complete'

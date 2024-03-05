@@ -181,6 +181,7 @@ a {
   flex-wrap: wrap;
   box-sizing: border-box;
   float: left;
+  justify-content: center;
 }
 .main-side {
   background-color: #222;

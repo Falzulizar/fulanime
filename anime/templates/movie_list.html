@@ -1,0 +1,75 @@
+<!-- templates/anime/anime_list.html -->
+
+{% extends 'base.html' %}
+{% block title %}Movie List - Fulanime{% endblock %}
+{% block content %}
+
+    <style>
+      form{
+        margin-bottom: 20px;
+      }
+    </style>
+
+    <div class="container cf">
+ 
+        <!-- Heading Box -->
+        <div class="heading-box">
+            <div class="heading">List Movie</div>
+        </div>
+
+        <div class="search-results">
+            {% if query %}
+                <p>Search results for: {{ query }}</p>
+                <!-- Display search results here -->
+                {% for movie in search_results %}
+                    <!-- Customize the display of each search result -->
+                    <p>{{ movie.title }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Genre Filter -->
+        <form method="get" id="genreFilterForm">
+          <label for="genre">Filter by Genre:</label>
+          <select name="genre" id="genre">
+              <option value="">All Genres</option>
+              {% for genre in genres %}
+                  <option value="{{ genre.name }}" {% if genre.name == selected_genre %}selected{% endif %}>
+                      {{ genre.name }}
+                  </option>
+              {% endfor %}
+          </select>
+        </form>
+        
+
+          <!-- Anime Container - Trending Anime -->
+          <div class="anime-container" style="width: 100%;">
+            <!-- Box -->
+            {% for movie in movie_list %}
+              <div class="box">
+                <a href="{% url 'movie_detail' movie.id %}" class="box-overlay">
+                  <i class="uil uil-play-circle"></i>
+                </a>
+                <div class="box-img">
+                  <img src="{{ movie.cover_image.url }}" alt="{{ movie.title }}">
+                </div>
+                <div class="box-text">
+                  <div class="bottom-text">
+                    <div class="judul">
+                      <strong>{{ movie.title }}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+    </div>
+
+    <script>
+        document.getElementById('genre').addEventListener('change', function() {
+            document.getElementById('genreFilterForm').submit();
+        });
+    </script>    
+    
+{% endblock %}
