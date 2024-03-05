@@ -114,36 +114,6 @@
           {% endfor %}
         </div>
 
-
-        <!-- Heading Box - List Movie -->
-        <div class="heading-box">
-          <div class="heading">Movie List</div>
-          <div class="view-all"><a href="{% url 'anime_list' %}">View All<i class="uil uil-arrow-right"></i></a></div>
-        </div>
-        
-
-        <!-- Anime Container - List Anime -->
-        <div class="anime-container">
-          <!-- Box -->
-          {% for movie in movie_list %}
-            <div class="box">
-              <a href="{% url 'movie_detail' movie.id %}" class="box-overlay">
-                <i class="uil uil-play-circle"></i>
-              </a>
-              <div class="box-img">
-                <img src="{{ movie.cover_image.url }}" alt="{{ movie.title }}">
-              </div>
-              <div class="box-text">
-                <div class="bottom-text">
-                  <div class="judul">
-                    <strong>{{ movie.title }}</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-
       </section>
   </div>
 {% endblock %}

@@ -25,15 +25,13 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('tes/', views.tes, name='tes'),
     path('anime/<int:anime_id>/', views.anime_detail, name='anime_detail'),
-    path('movie/<int:movie_id>/', views.movie_detail, name='movie_detail'),
     path('anime-list/', views.anime_list, name='anime_list'),
-    path('movie-list/', views.movie_list, name='movie_list'),
     path('episode/<int:episode_id>/', views.episode_detail, name='episode_detail'),
     path('episode/<int:episode_id>/add_comment/', views.add_comment, name='add_comment'),
     path('ongoing-anime/', views.ongoing_anime, name='ongoing_anime'),
     path('add_comment/<int:episode_id>/', views.add_comment, name='add_comment'),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
