@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-m)bne-#=+5q!(ro2go7%l!@&c@ol9#(dh5!bpjjwy+uy^mnb*_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.now.sh']
+
 
 
 # Application definition
@@ -80,10 +81,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'g5Cf5GGeF-GeFAa3dABEc363Efgba31',
+        'PASSWORD': 'g5Cf5GGeF-GeFAa3dABEc363Efgba31-',
         'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '28253',
-    }   
+        'PORT': '28253',  
+    }
 }
 
 
@@ -133,5 +134,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')

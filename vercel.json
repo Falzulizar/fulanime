@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "fulanimeproject/wsgi.py",
+        "src": "fulanime/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
       },
@@ -10,7 +10,7 @@
         "src": "build_files.sh",
         "use": "@vercel/static-build",
         "config": {
-          "distDir": "staticfiles_build"
+          "distDir": "staticfiles"
         }
       }
     ],
@@ -21,9 +21,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "fulanimeproject/wsgi.py"
+        "dest": "fulanime/wsgi.py"
       }
     ]
   }
-  
-  
