@@ -9,21 +9,40 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="wrapper">
+  <div class="toast" id="toast">
+    <div class="container-1">
+        <i class="uil uil-info-circle"></i>
+    </div>
+    <div class="container-2">
+        <p>Info <small>(Closing in <span id="countdown">5</span> sec)</small></p>
+        <p>Tertarik untuk beriklan di situs Fulanime? silakan bergabung ke server Discord https://discord.gg/hfx3gpbaWP</p>
+    </div>
+  </div>
+</div>
   <!-- Info -->
-  <div class="container cf">
+  <div class="container cf" style="padding: 20px;">
     <div class="info">
       <span>INFO</span> repair is complete, happy watching and downloading<br>
-      Sedang dalam proses penambahan video streaming (Episode List) untuk setiap Anime. Dimulai dari Abjad A-Z
+      Sedang dalam proses penambahan video streaming (Episode List) untuk setiap Anime. Dimulai dari Abjad A-Z<br>
     </div>
     <!-- Anime -->
       <section class="anime" id="anime">
         <!-- Swiper -->
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="{% static "image/slide1.png" %}" alt="slide1"></div>
-            <div class="swiper-slide"><img src="{% static "image/slide2.png" %}" alt="slide2"></div>
-            <div class="swiper-slide"><img src="{% static "image/slide4.png" %}" alt="slide4"></div>
-            <div class="swiper-slide"><img src="{% static "image/slide5.png" %}" alt="slide5"></div>
+            {% for content in swiper_contents %}
+              <div class="swiper-slide">
+                <img src="{{ content.image.url }}" alt="{{ content.judul }}">
+                <div class="slide-content">
+                  <p>{{ content.subjudul }}</p>
+                  <h1>{{ content.judul }}</h1>
+                  <p>{{ content.deskripsi }}</p>
+                  <a href="{{ content.aksi }}" class="watch-now-button">Watch Now</a>
+                </div>
+              </div>
+            {% endfor %}
           </div>
         </div>
 
@@ -54,11 +73,10 @@
           </div>
         </div>
 
-
         <!-- Heading Box - Trending Anime -->
         <div class="heading-box">
-          <div class="heading">Trending Now</div>
-          <div class="view-all"><a href="{% url 'anime_list' %}">View All<i class="uil uil-arrow-right"></i></a></div>
+          <p class="heading">Trending Now</p>
+          <a href="{% url 'anime_list' %}">View All<i class="uil uil-arrow-right"></i></a>
         </div>
 
         <!-- Anime Container - Trending Anime -->
@@ -86,8 +104,8 @@
 
         <!-- Heading Box - List Anime -->
         <div class="heading-box">
-          <div class="heading">Anime List</div>
-          <div class="view-all"><a href="{% url 'anime_list' %}">View All<i class="uil uil-arrow-right"></i></a></div>
+          <p class="heading">Anime List</p>
+          <a href="{% url 'anime_list' %}">View All<i class="uil uil-arrow-right"></i></a>
         </div>
         
 
@@ -114,35 +132,70 @@
           {% endfor %}
         </div>
 
+
+        <!-- Heading Box - List Movie -->
+        <div class="heading-box">
+          <p class="heading">Movie List</p>
+          <a href="{% url 'movie_list' %}">View All<i class="uil uil-arrow-right"></i></a>
+        </div>
+
+
+        <div class="anime-container" style="width: 100%;">
+          <!-- Box -->
+          {% for movie in movie_list %}
+            <div class="box">
+              <a href="{% url 'movie_detail' movie.id %}" class="box-overlay">
+                <i class="uil uil-play-circle"></i>
+              </a>
+              <div class="box-img">
+                <img src="{{ movie.cover_image.url }}" alt="{{ movie.title }}">
+              </div>
+              <div class="box-text">
+                <span class="ep"><i class="uil uil-star"></i> {{ movie.rating }}</span>
+                <div class="bottom-text">
+                  <div class="judul">
+                    <strong>{{ movie.title }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
       </section>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var toast = document.getElementById('toast');
+      var countdownText = document.getElementById('countdown');
+      var countdown = 5; // set countdown time in seconds
+
+      function updateCountdown() {
+        countdownText.innerText = countdown;
+
+        if (countdown === 0) {
+          closeToast();
+        } else {
+          countdown--;
+          setTimeout(updateCountdown, 1000);
+        }
+      }
+
+      function closeToast() {
+        toast.style.display = 'none';
+      }
+
+      updateCountdown();
+      toast.style.display = 'flex';
+    });
+  </script>
+
 {% endblock %}
 
 {% block extra_js %}
   <!-- Add your additional JS scripts here -->
+
+
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script>
-    var swiper = new Swiper('.mySwiper', {
-      slidesPerView: 1,
-      spaceBetween: 10,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 4,
-          spaceBetween: 30,
-        },
-        1024: {
-          slidesPerView: 5,
-          spaceBetween: 40,
-        },
-      }
-    });
-  </script>
 {% endblock %}

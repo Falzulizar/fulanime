@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Fulanime | Streaming Anime{% endblock %}</title>
         <link rel="icon" href="{% static "image/icon.png" %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=2">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
         <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
@@ -22,8 +22,8 @@
         <ul class="nav-links">
           <i class="uil uil-times navCloseBtn"></i>
           <li><a href="{% url 'index' %}" class="garis">Home</a></li>
-          <li><a href="{% url 'anime_list' %}" class="garis">List Anime</a></li>
-          <li><a href="#" class="garis">Movie</a></li>
+          <li><a href="{% url 'anime_list' %}" class="garis">Anime</a></li>
+          <li><a href="{% url 'movie_list' %}" class="garis">Movie</a></li>
           <li><a href="{% url 'ongoing_anime' %}" class="garis">Ongoing</a></li>
           <li><a href="{% url 'admin:index' %}" class="nav-log garis">Log in</a></li>
         </ul>

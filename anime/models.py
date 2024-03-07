@@ -5,6 +5,19 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Movie(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    release_date = models.DateField()
+    genres = models.ManyToManyField(Genre)
+    rating = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True)
+    cover_image = models.ImageField(upload_to='movie_covers/', null=True, blank=True)
+    video_url = models.URLField()
+
+    def __str__(self):
+        return self.title
+
 
 class Anime(models.Model):
     ONGOING = 'Ongoing'
@@ -57,3 +70,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.user_name} on {self.episode.anime.title} - Episode {self.episode.episode_number}"
+
+class SwiperContent(models.Model):
+    subjudul = models.CharField(max_length=255)
+    judul = models.CharField(max_length=255)
+    deskripsi = models.TextField()
+    aksi = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='swiper_images/')
+
+    def __str__(self):
+        return self.judul

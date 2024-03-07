@@ -116,32 +116,136 @@ a {
 }
 .container {
   max-width: 1159px;
-  padding: 20px;
   margin: 70px auto 0 auto;
 }
 .swiper {
   margin: 20px 0;
   width: 73%;
   height: 100%;
-  border-radius: 10px;
   float: left;
 }
 
 .swiper-slide {
-  text-align: center;
+  position: relative;
+  text-align: left;
   font-size: 18px;
-  background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .swiper-slide img {
-  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
+.slide-content {
+  position: absolute;
+  top: 40%;
+  left: 5%;
+  /* transform: translate(-50%, -50%); */
+  color: white;
+  text-align: left;
+  width: 60%;
+}
+
+.slide-content h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.slide-content p {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.watch-now-button {
+  display: inline-block;
+  padding: 7px 17px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #000;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.watch-now-button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/*.wrapper {
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  height: 100vh; 
+  z-index: 10;
+}*/
+
+.wrapper {
+  position: fixed;
+  top: 75%;
+  left: 60%;
+  height: 100vh;
+  z-index: 10;
+}
+
+.toast {
+  width: 75%;
+  height: 20%;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 7px;
+  display: grid;
+  grid-template-columns: 1.3fr 6fr 0.5fr;
+  border-left: 5px solid #2F86EB;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.toast i {
+  color: #2F86EB;
+}
+
+.toast small {
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.container-1,
+.container-2 {
+  align-self: center;
+}
+
+.container-1 i {
+  font-size: 40px;
+  margin-right: 10px;
+}
+
+.container-2 p:first-child {
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.container-2 p:last-child {
+  font-size: 12px;
+  font-weight: 400;
+  color: #969595;
+}
+
+.toast button {
+  align-self: flex-start;
+  font-size: 25px;
+  color: #656565;
+  line-height: 0;
+  cursor: pointer;
+}
+
 /*LANDING PAGE*/
 .info {
     color: #fff;
@@ -165,6 +269,7 @@ a {
 .heading-box {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 75%;
   border-left: 5px solid blue;
   padding: 0 12px;
@@ -181,7 +286,6 @@ a {
   flex-wrap: wrap;
   box-sizing: border-box;
   float: left;
-  justify-content: center;
 }
 .main-side {
   background-color: #222;
@@ -225,7 +329,7 @@ a {
 .box {
   position: relative;
   width: 125px;
-  height: 180px;
+  height: 170px;
   margin: 5px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
@@ -437,19 +541,73 @@ footer {
   .nav-log {
     display: block;
   }
+  .slide-content {
+    top: 25%;
+  }
+  .slide-content p {
+    font-size: 8px;
+    margin-bottom: 2px;
+  }
+  .slide-content h1 {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .watch-now-button {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 8px;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 30px;
+  }
+  
 }
 @media screen and (max-width: 600px) {
   .hide {
     display: none;
   }
+  .heading-box .heading {
+    font-size: 1rem;
+  }
+  .view-all a {
+    font-size: 1rem;
+  }
   .box {
-    width: 115px;
-    height: 150px;
+    width: 30%;
+    height: 130px;
+    margin: 5px;
+  }
+  .box-text .judul strong {
+    font-size: 14px;
   }
   .footer-section {
     width: auto;
   }
   .swiper {
     width: 100%;
+  }
+  .info {
+    color: #fff;
+    margin: auto;
+    padding: 8px;
+    background-color: #0b0a0d;
+    border-radius: 3px;
+    font-size: 9px;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 10%);
+    text-align: center;
+  }
+  .info span {
+    font-size: 9px;
+  }
+  .wrapper {
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    height: 100vh; 
+    z-index: 10;
   }
 }

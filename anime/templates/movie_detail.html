@@ -1,147 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}{{ movie.title }} - Fulanime{% endblock %}
+{% load static %}
+  
+
 
 {% block content %}
-{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/detailpage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/animedetail.css' %}">
 
-  <style>
-    .episode-page {
-        max-width: 1159px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    
-    .video-container {
-        position: relative;
-        margin: 20px 0;
-        overflow: hidden;
-        padding-bottom: 56.25%;
-        height: 0;
-    }
-    
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        box-shadow: none;
-        outline: none;
-    }
-  
-    .watermark {
-      position: absolute;
-      left: 10px;
-      max-width: 20%; /* Maksimum lebar watermark */
-      width: auto; /* Lebar akan menyesuaikan dengan kontennya */
-      padding: 5px;
-      border-radius: 5px;
-      z-index: 2; /* Set a higher z-index than the iframe */
-    }
-  
-    .watermark img {
-      max-width: 100%;
-      height: auto;
-  }
-
-    /* Container styling */
-    .anime-detail-container {
-        display: flex;
-        margin: 20px 0;
-        background-color: #222; /* Warna latar belakang pembungkus */
-        padding: 20px; /* Ruang di dalam pembungkus */
-    }
-
-    /* Image styling */
-    .anime-detail-container img {
-        width: 30%; /* Sesuaikan lebar gambar sesuai kebutuhan Anda */
-        height: auto;
-        margin-right: 20px; /* Jarak antara gambar dan teks */
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan pada gambar */
-    }
-
-    /* Text and genre container styling */
-    .text-genre-container {
-        flex-grow: 1; /* Membuat teks dan genre memenuhi sisa ruang yang tersedia */
-        color: #fff; /* Warna teks */
-    }
-
-    /* Genre list styling */
-    .text-genre-container ul {
-        list-style: none;
-        padding: 0;
-        margin-top: 10px;
-    }
-
-    .text-genre-container ul li {
-        display: inline-block;
-        margin: 3px;
-        background-color: #333; /* Warna latar belakang genre */
-        color: #fff; /* Warna teks genre */
-        padding: 5px 10px;
-        border-radius: 3px;
-    }
-
-    /* Episode list styling */
-    ul.episode-list {
-        list-style: none;
-        padding: 0;
-        display: flex; /* Membuat daftar episode menggunakan flexbox */
-        flex-direction: column; /* Mengatur arah menjadi vertikal (ke bawah) */
-        margin-top: 10px;
-    }
-
-    ul.episode-list li {
-        background-color: #333; /* Warna latar belakang episode */
-        color: #fff; /* Warna teks episode */
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan pada episode */
-        transition: background-color 0.3s ease; /* Efek transisi ketika dihover */
-        display: flex;
-        align-items: center;
-    }
-
-    .anime-detail-text ul.episode-list li:hover {
-        background-color: #555; /* Warna latar belakang ketika dihover */
-    }
-
-    .donate a {
-      /* Gaya untuk tombol episode yang tidak aktif */
-      color: #fff;
-      padding: 5px 10px;
-      margin: 5px;
-      text-decoration: none;
-      display: inline-block;
-      border-radius: 3px;
-    }
-
-    /* Media Queries */
-    /* Mobile Phones */
-    @media only screen and (max-width: 600px) {
-      .anime-detail-container {
-        flex-direction: column; /* Stack items vertically on smaller screens */
-      }
-      .anime-detail-container img {
-        width: 100%;
-      }
-      .donate a {
-        display: flex;
-        align-items: center;
-      }
-    }
-  
-    /* Tablets */
-    @media only screen and (min-width: 601px) and (max-width: 768px) {
-      .anime-detail-container img {
-        width: 30%;
-        height: auto;
-      }
-    }
-  </style>
   <div class="container cf">
 
     <div class="episode-page">
@@ -162,16 +29,20 @@
     <div class="anime-detail-container">
       <img src="{{ MEDIA_URL }}{{ movie.cover_image.url }}" alt="{{ movie.title }} Cover">
       <div class="text-genre-container">
-        <h1>{{ movie.title }}</h2>
-        <p>{{ movie.description }}</p>
-        <p><strong>Tanggal Rilis:</strong> {{ movie.release_date|date:"M d, Y" }}</p>
-        <h3>Genre:</h3>
-        <ul>
-          {% for genre in movie.genres.all %}
-            <li>{{ genre.name }}</li>
-          {% endfor %}
-        </ul>
+          <h1>{{ movie.title }}</h2>
+          <p><strong>Tanggal Rilis:</strong> {{ movie.release_date|date:"M d, Y" }}</p>
+          <p><strong>Total Episode:</strong> {{ movie.episode_count }}</p>
+          <p><strong>Genre:</strong></p>
+          <ul>
+              {% for genre in movie.genres.all %}
+                  <li>{{ genre.name }}</li>
+              {% endfor %}
+          </ul>
       </div>
+    </div>
+    <div class="description">
+        <h3>Deskripsi :</h3>
+        <p>{{ movie.description }}</p>
     </div>
 
     <!-- Donate Buttons -->
@@ -189,8 +60,6 @@
             Donasi via Saweria
           </a>
     </div>
-    
-
     
   
   </div>

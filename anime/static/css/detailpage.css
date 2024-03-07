@@ -1,0 +1,192 @@
+.episode-page {
+    max-width: 1159px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.video-container {
+    position: relative;
+    margin: 20px 0;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    outline: none;
+}
+
+.watermark {
+  position: absolute;
+  left: 10px;
+  max-width: 20%; /* Maksimum lebar watermark */
+  width: auto; /* Lebar akan menyesuaikan dengan kontennya */
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 2; /* Set a higher z-index than the iframe */
+}
+
+.watermark img {
+  max-width: 100%;
+  height: auto;
+}
+
+.episode-buttons-container {
+overflow-x: auto;
+white-space: nowrap;
+padding: 10px 0;
+}
+
+.episode-buttons {
+display: inline-flex;
+gap: 10px;
+}
+
+.episode-buttons a {
+color: #333;
+background-color: #f0f0f0;
+padding: 10px 15px;
+text-decoration: none;
+border: 1px solid #ddd;
+border-radius: 5px;
+transition: background-color 0.3s, color 0.3s;
+}
+
+.episode-buttons a.active-playing {
+background-color: #3498db;
+color: #fff;
+/* Additional styles for active-playing state */
+}
+
+.episode-buttons a:hover {
+background-color: #3498db;
+color: #fff;
+/* Additional styles for hover state */
+}
+
+.pagination-buttons {
+display: flex;
+justify-content: space-between;
+margin-top: 10px;
+}
+
+.pagination-buttons button {
+padding: 10px 15px;
+background-color: #3498db;
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-buttons button:hover {
+background-color: #2575a7;
+}
+
+.comment-list {
+list-style: none;
+padding: 0;
+}
+
+.comment-list li {
+margin-bottom: 20px;
+}
+
+.fix-comment {
+    display: flex;
+}
+
+.comment-list img {
+border-radius: 50%;
+width: 50px; /* Sesuaikan dengan ukuran yang diinginkan */
+height: 50px; /* Sesuaikan dengan ukuran yang diinginkan */
+margin-right: 15px;
+}
+
+.fix-side {
+    display: block;
+}
+
+.comment-text {
+display: flex;
+align-items: center;
+}
+
+.comment-list span {
+font-size: 12px;
+color: #999;
+margin-left: 5px;
+}
+
+.comment-list p {
+font-size: 15px;
+}
+
+
+/* Comment Form Styling */
+.comment-form {
+    margin-top: 20px;
+}
+
+.comment-form label {
+    display: block;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.comment-form button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.comment-form button:hover {
+    background-color: #2980b9;
+}
+
+@media screen and (max-width: 600px) {
+    .video-container {
+        margin: 5px 0 0 0;
+    }
+
+    .episode-buttons {
+        gap: 5px;
+    }
+
+    .episode-buttons a {
+        padding: 5px 3px;
+        font-size: 10px;
+    }
+
+    .pagination-buttons {
+        margin-top: 5px;
+    }
+    .pagination-buttons button {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+    .comment-form button {
+        padding: 6px 9px;
+        font-size: 12px;
+    }
+}

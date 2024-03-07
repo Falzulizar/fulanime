@@ -1,0 +1,137 @@
+/* Container styling */
+.anime-detail-container {
+    display: flex;
+    margin: 20px 0;
+    flex-direction: row;
+    background-color: #222; /* Warna latar belakang pembungkus */
+    padding: 20px; /* Ruang di dalam pembungkus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan pada container */
+    border-radius: 5px; /* Tambahkan border-radius untuk ujung container */
+}
+
+/* Image styling */
+.anime-detail-container img {
+    width: 30%; /* Sesuaikan lebar gambar sesuai kebutuhan Anda */
+    height: auto;
+    margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan pada gambar */
+}
+
+/* Text and genre container styling */
+.text-genre-container {
+    color: #fff; /* Warna teks */
+}
+
+.text-genre-container p {
+    margin: 10px 0;
+}
+
+/* Genre list styling */
+.text-genre-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.text-genre-container ul li {
+    display: inline-block;
+    background-color: #333; /* Warna latar belakang genre */
+    color: #fff; /* Warna teks genre */
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+/* Description styling */
+.description {
+    margin: 20px 0;
+    color: #fff; /* Warna teks deskripsi */
+}
+
+/* Episode list styling */
+ul.episode-list {
+    list-style: none;
+    padding: 0;
+    display: flex; /* Membuat daftar episode menggunakan flexbox */
+    flex-direction: column; /* Mengatur arah menjadi vertikal (ke bawah) */
+    margin-top: 10px;
+}
+
+ul.episode-list li {
+    background-color: #333; /* Warna latar belakang episode */
+    color: #fff; /* Warna teks episode */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan pada episode */
+    transition: background-color 0.3s ease; /* Efek transisi ketika dihover */
+    display: flex;
+    align-items: center;
+}
+
+.anime-detail-text ul.episode-list li:hover {
+    background-color: #555; /* Warna latar belakang ketika dihover */
+}
+
+.donate a {
+  /* Gaya untuk tombol episode yang tidak aktif */
+  color: #fff;
+  padding: 5px 10px;
+  margin: 5px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+/* Media Queries */
+/* Mobile Phones */
+@media only screen and (max-width: 600px) {
+  .anime-detail-container {
+    padding: 10px; /* Ruang di dalam pembungkus */
+  }
+  .anime-detail-container img {
+    width: 30%;
+    height: 100%;
+  }
+  .donate a {
+    display: flex;
+    align-items: center;
+  }
+  .text-genre-container h1 {
+    font-size: 20px;
+  }
+  .text-genre-container p {
+    font-size: 11px;
+    margin: 0;
+  }
+  .text-genre-container ul {
+    padding: 0;
+    margin: 0;
+    }
+
+    .text-genre-container ul li {
+    padding: 0 5px;
+    font-size: 11px;
+    margin: 0;
+    }
+    .description {
+        font-size: 12px;
+        text-align: justify;
+    }
+    ul.episode-list {
+        margin-top: 0;
+    }
+    ul.episode-list li {
+        padding: 5px;
+        font-size: 13px;
+        margin: 3px 0;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+  .anime-detail-container img {
+    width: 30%;
+    height: auto;
+  }
+}

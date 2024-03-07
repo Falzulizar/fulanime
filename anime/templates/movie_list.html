@@ -10,7 +10,7 @@
       }
     </style>
 
-    <div class="container cf">
+    <div class="container cf" style="padding: 20px;">
  
         <!-- Heading Box -->
         <div class="heading-box">
@@ -42,27 +42,27 @@
         </form>
         
 
-          <!-- Anime Container - Trending Anime -->
-          <div class="anime-container" style="width: 100%;">
-            <!-- Box -->
-            {% for movie in movie_list %}
-              <div class="box">
-                <a href="{% url 'movie_detail' movie.id %}" class="box-overlay">
-                  <i class="uil uil-play-circle"></i>
-                </a>
-                <div class="box-img">
-                  <img src="{{ movie.cover_image.url }}" alt="{{ movie.title }}">
-                </div>
-                <div class="box-text">
-                  <div class="bottom-text">
-                    <div class="judul">
-                      <strong>{{ movie.title }}</strong>
-                    </div>
+        <div class="anime-container" style="width: 100%;">
+          <!-- Box -->
+          {% for movie in movie_list %}
+            <div class="box">
+              <a href="{% url 'movie_detail' movie.id %}" class="box-overlay">
+                <i class="uil uil-play-circle"></i>
+              </a>
+              <div class="box-img">
+                <img src="{{ movie.cover_image.url }}" alt="{{ movie.title }}">
+              </div>
+              <div class="box-text">
+                <span class="ep"><i class="uil uil-star"></i> {{ movie.rating }}</span>
+                <div class="bottom-text">
+                  <div class="judul">
+                    <strong>{{ movie.title }}</strong>
                   </div>
                 </div>
               </div>
-            {% endfor %}
-          </div>
+            </div>
+          {% endfor %}
+        </div>
 
     </div>
 

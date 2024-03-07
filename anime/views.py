@@ -1,20 +1,23 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import Anime, Episode, Comment, RecommendedAnime, TrendingAnime, Genre
+from .models import Anime, Episode, Comment, RecommendedAnime, TrendingAnime, Genre, Movie, SwiperContent
 
-def tes(request):
-    return render(request, 'tes.html')
 
 def index(request):
     anime_list = Anime.objects.all()
+    movie_list = Movie.objects.all()
+    swiper_contents = SwiperContent.objects.all()
     recommended_animes = RecommendedAnime.objects.all()
     trending_animes = TrendingAnime.objects.all()
 
     context = {
         'anime_list': anime_list,
+        'movie_list': movie_list,
         'recommended_animes': recommended_animes,
         'trending_animes': trending_animes,
+        'swiper_contents': swiper_contents,
+
     }
 
     return render(request, 'index.html', context)
@@ -22,6 +25,10 @@ def index(request):
 def anime_detail(request, anime_id):
     anime = get_object_or_404(Anime, pk=anime_id)
     return render(request, 'anime_detail.html', {'anime': anime})
+
+def movie_detail(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+    return render(request, 'movie_detail.html', {'movie': movie})
 
 def episode_detail(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
@@ -56,6 +63,22 @@ def anime_list(request):
 
     context = {'anime_list': anime_list, 'genres': genres, 'selected_genre': selected_genre, 'query': search_query}  # Tambahkan 'query' ke context
     return render(request, 'anime_list.html', context)
+
+def movie_list(request):
+    genres = Genre.objects.all()
+    selected_genre = request.GET.get('genre')
+    search_query = request.GET.get('q')  # Tambahkan ini
+
+    if selected_genre:
+        movie_list = Movie.objects.filter(genres__name=selected_genre)
+    elif search_query:  # Periksa apakah ada parameter pencarian
+        movie_list = Movie.objects.filter(title__icontains=search_query)
+    else:
+        movie_list = Movie.objects.all()
+
+    context = {'movie_list': movie_list, 'genres': genres, 'selected_genre': selected_genre, 'query': search_query}  # Tambahkan 'query' ke context
+    return render(request, 'movie_list.html', context)
+    
 
 def ongoing_anime(request):
     ongoing_anime_list = Anime.objects.filter(status=Anime.ONGOING)

@@ -26,13 +26,12 @@ SECRET_KEY = 'django-insecure-m)bne-#=+5q!(ro2go7%l!@&c@ol9#(dh5!bpjjwy+uy^mnb*_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app", ".now.sh"]
-
+ALLOWED_HOSTS = ['127.0.0.1', '1a59-36-70-233-152.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://1a59-36-70-233-152.ngrok-free.app']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,10 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'fulanime.urls'
 
@@ -81,13 +78,8 @@ WSGI_APPLICATION = 'fulanime.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgresql://postgres:g5Cf5GGeF-GeFAa3dABEc363Efgba31-@viaduct.proxy.rlwy.net:28253/railway',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'g5Cf5GGeF-GeFAa3dABEc363Efgba31-',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '28253',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -130,6 +122,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'anime/static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
